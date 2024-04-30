@@ -1,24 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Link, Route, Routes } from "react-router-dom";
+import Home from "./screens/Home";
+import Profile from "./screens/Profile";
+import Events from "./screens/Events";
+import EventDetails from "./screens/EventDetails";
+import CreateEvent from "./screens/CreateEvent";
+import NotFound from "./screens/NotFound";
+import EventsLayout from "./screens/EventsLayout";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
+          </li>
+          <li>
+            <Link to="/Profile">Profile</Link>
+          </li>
+          <li>
+            <Link to="/Events">Events</Link>
+          </li>
+        </ul>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Events" element={<EventsLayout />}>
+          <Route index element={<Events />} />
+          <Route path=":id" element={<EventDetails />} />
+          <Route path="new" element={<CreateEvent />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 }
 
